@@ -1,18 +1,74 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 
-/*== STEP 1 ===============================================================
-The section below creates a Todo database table with a "content" field. Try
-adding a new "isDone" field as a boolean. The authorization rule below
-specifies that any unauthenticated user can "create", "read", "update", 
-and "delete" any "Todo" records.
-=========================================================================*/
+
 const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
-    })
-    .authorization((allow) => [allow.guest()]),
+  Post: a.model({
+    postId: a.id(),
+    name: a.string().required(),
+    categoryId: a.id(),
+    category: a.belongsTo('Category', 'categoryId'),
+    description: a.string(),
+    title: a.string(),
+    content: a.string(),
+    primary_asset: a.json(),
+    authorId: a.id().required(),
+    author: a.belongsTo('AdminUser', 'authorId'),
+    createdAt: a.datetime(),
+    updatedAt: a.datetime(),
+    status: a.enum(['PUBLISHED', 'DELETED', 'DRAFTED']),
+    tags: a.hasMany('PostTags', 'postId'),
+    keywords: a.string().array()
+  }).authorization(allow => [
+    // Allow anyone auth'd with an API key to read everyone's posts.
+    allow.authenticated(),
+    // Allow signed-in user to create, read, update,
+    // and delete their __OWN__ posts.
+    allow.owner(),
+  ]),
+
+  PostTags: a.model({
+    id: a.id(),
+    postId: a.id().required(),
+    tagId: a.id().required(),
+    post: a.belongsTo('Post', 'postId'),
+    tag: a.belongsTo('Tag', 'tagId'),
+  }).authorization((allow) => allow.authenticated()),
+
+  Tag: a.model({
+    tagId: a.id(),
+    name: a.string().required(),
+    createdAt: a.datetime(),
+    updatedAt: a.datetime(),
+    posts: a.hasMany('PostTags', 'tagId'),
+  }).authorization((allow) => allow.authenticated()),
+
+  Category: a.model({
+    name: a.string().required(),
+    createdAt: a.datetime(),
+    updatedAt: a.datetime(),
+    posts: a.hasMany('Post', 'categoryId'),
+  }).authorization((allow) => allow.authenticated()),
+
+  AdminUser: a.model({
+    id: a.id(),
+    userName: a.string().required(),
+    password: a.string(),
+    email: a.string().required(),
+    image: a.string(),
+    f_name: a.string(),
+    l_name: a.string(),
+    DOB: a.date(),
+    profession: a.string(),
+    category: a.string(),
+    description: a.string(),
+    joining_date: a.date(),
+    total_posts: a.integer(),
+    posts: a.hasMany('Post', 'authorId'),
+    createdAt: a.datetime(),
+    updatedAt: a.datetime(),
+  }).authorization((allow) => allow.authenticated()),
 });
+
 
 export type Schema = ClientSchema<typeof schema>;
 
@@ -23,31 +79,3 @@ export const data = defineData({
   },
 });
 
-/*== STEP 2 ===============================================================
-Go to your frontend source code. From your client-side code, generate a
-Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
-WORK IN THE FRONTEND CODE FILE.)
-
-Using JavaScript or Next.js React Server Components, Middleware, Server 
-Actions or Pages Router? Review how to generate Data clients for those use
-cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
-=========================================================================*/
-
-/*
-"use client"
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
-
-const client = generateClient<Schema>() // use this Data client for CRUDL requests
-*/
-
-/*== STEP 3 ===============================================================
-Fetch records from the database and use them in your frontend component.
-(THIS SNIPPET WILL ONLY WORK IN THE FRONTEND CODE FILE.)
-=========================================================================*/
-
-/* For example, in a React component, you can use this snippet in your
-  function's RETURN statement */
-// const { data: todos } = await client.models.Todo.list()
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>

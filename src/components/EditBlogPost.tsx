@@ -1,8 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import JoditEditor from 'jodit-react';
 import { initialContent, editorConfig } from '../components/EditorConfig';
+import dynamic from 'next/dynamic';
 
+const JoditEditor = dynamic(() => import("jodit-react"), {
+    ssr: false,
+});
 const EditBlogPost = () => {
     const [data, setData] = useState(initialContent);
 
