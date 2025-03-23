@@ -24,3 +24,80 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Joedit editor, some unorder-list not working */
+.jodit-wysiwyg ul,
+.jodit-dialog__content ul {
+  list-style-type: disc;
+  margin: 0;
+  padding: 0 20px 10px;
+}
+
+.jodit-wysiwyg ul ul,
+.jodit-dialog__content ul ul {
+  list-style-type: circle;
+}
+
+.jodit-wysiwyg ul ul ul,
+.jodit-dialog__content ul ul ul {
+  list-style-type: square;
+}
+
+.jodit-wysiwyg ol,
+.jodit-dialog__content ol {
+  list-style-type: decimal;
+  padding-left: 40px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.jodit-wysiwyg ol ol,
+.jodit-dialog__content ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.jodit-wysiwyg td,
+.jodit-dialog__content td {
+  border: solid 1px;
+}
+
+.jodit-wysiwyg h1,
+.jodit-dialog__content h1 {
+  font-size: large;
+}
+
+.jodit-wysiwyg h1,
+.jodit-dialog__content h1,
+.jodit-wysiwyg h2,
+.jodit-dialog__content h2,
+.jodit-wysiwyg h3,
+.jodit-dialog__content h3,
+.jodit-wysiwyg h4,
+.jodit-dialog__content h4 {
+  margin: 0.1rem 0;
+}
+
+.jodit-wysiwyg h1,
+.jodit-dialog__content h1 {
+  font-size: 2rem;
+}
+
+.jodit-wysiwyg h2,
+.jodit-dialog__content h2 {
+  font-size: 1.5rem;
+  padding-left: 20px;
+}
+
+.jodit-wysiwyg h3,
+.jodit-dialog__content h3 {
+  font-size: 1.2rem;
+  padding-left: 40px;
+}
+
+.jodit-wysiwyg h4,
+.jodit-dialog__content h4 {
+  font-size: 1rem;
+  font-style: italic;
+  padding-left: 60px;
+}
