@@ -14,7 +14,6 @@ export const editorConfig = {
     uploader: {
         insertImageAsBase64URI: true
     },
-    width: 800,
     minHeight: 400,
     controls: {
         font: {

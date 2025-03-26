@@ -1,0 +1,13 @@
+.container button{
+    outline: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--foreground);
+    border: none;
+    width: 96px;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+

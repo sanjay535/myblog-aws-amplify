@@ -1,0 +1,27 @@
+.main {
+    max-width: 1440px;
+    margin: 0 auto;
+    z-index: 0;
+}
+
+.main h1 {
+    font-size: calc(var(--fontSize1)*10);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--headingBorder);
+    border-bottom: 1px solid var(--headingBorder);
+
+}
+
+@media screen and (max-width:768px) {
+    .main h1 {
+        font-size: calc(var(--fontSize1)*4);
+    }
+}
+
+@media screen and (max-width:512px) {
+    .main h1 {
+        font-size: calc(var(--fontSize1)*3);
+    }
+}

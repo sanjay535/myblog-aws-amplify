@@ -1,0 +1,30 @@
+.container {
+  max-width: 1280px;
+  margin: 3rem auto;
+}
+.container h2{
+  margin-left: 2rem;
+}
+.postLeftRight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.lastCard{
+  margin-top: 2rem;
+}
+
+.postFull{
+  margin: 2rem;
+}
+
+@media screen and (max-width:912px) {
+  .postLeftRight {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 2rem;
+  }
+}

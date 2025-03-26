@@ -1,5 +1,5 @@
 'use client'
-import { withAuthenticator } from "@aws-amplify/ui-react";
+import { Loader, withAuthenticator } from "@aws-amplify/ui-react";
 import { AuthUser } from "aws-amplify/auth";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
@@ -9,10 +9,10 @@ const SignUp = ({ user }: { user?: AuthUser }) => {
     console.log(user)
     useEffect(() => {
         if (user) {
-            redirect('/')
+            redirect('/admin')
         }
     })
-    return null
+    return <Loader className="w-[5rem] h-[5rem] flex justify-center items-center" />
 };
 
-export default withAuthenticator(SignUp);
+export default withAuthenticator(SignUp, { signUpAttributes: ['email', 'name', 'picture', 'profile',], variation: 'default' });
