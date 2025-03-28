@@ -37,7 +37,7 @@ function ThemeLayout() {
     <div className={classes.container}>
       <button className="theme" onClick={() => setTheme()}>
         <LightSun />
-        <LightRound fillColor="#fff" />
+        <LightRound />
       </button>
     </div>
   )

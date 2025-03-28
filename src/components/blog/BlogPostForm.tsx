@@ -13,7 +13,7 @@ interface FormData {
   status: "PUBLISHED" | "DELETED" | "DRAFTED";
 }
 
-const PostForm: React.FC = () => {
+const BlogPostForm: React.FC = () => {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [tags, setTags] = useState<{ id: string; name: string }[]>([]);
   const [formData, setFormData] = useState<FormData>({
@@ -29,6 +29,7 @@ const PostForm: React.FC = () => {
     const fetchData = async () => {
       const fetchedCategories = await data.Category.list();
       const fetchedTags = await data.Tag.list();
+      console.log(fetchedCategories, fetchedTags);
       setCategories(fetchedCategories.data);
       setTags(fetchedTags.data);
     };
@@ -43,14 +44,13 @@ const PostForm: React.FC = () => {
     e.preventDefault();
     try {
       await data.Post.create({
+        name: formData.title,
         postId: crypto.randomUUID(), // Ensure a unique ID
         title: formData.title,
-        description: formData.description,
         content: formData.content,
         categoryId: formData.categoryId,
         authorId: "some-author-id", // Replace with actual author logic
         status: formData.status,
-        tags: formData.selectedTags.map((tag) => ({ tagId: tag.id })),
         keywords: formData.title.split(" "),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -76,7 +76,7 @@ const PostForm: React.FC = () => {
       <Autocomplete
         label="Tags"
         options={tags.map(tag => ({ id: tag.id, label: tag.name }))}
-        onSelectionChange={(selected: { id: string; label: string }[]) => setFormData({ ...formData, selectedTags: selected })}
+        onSelect={(selected) => console.log(selected)}
         multiple
       />
 
@@ -91,4 +91,4 @@ const PostForm: React.FC = () => {
   );
 };
 
-export default PostForm;
+export default BlogPostForm;

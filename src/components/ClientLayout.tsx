@@ -12,7 +12,7 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             {isAdminPage ? <AdminHeader /> : <Navigation />}
-            <main>{children}</main>
+            <main className="flex justify-center">{children}</main>
             <Footer />
         </div>
     );

@@ -1,6 +1,6 @@
 
-function LeftArrow({opacity}) {
-    console.log('opacity', opacity)
+function LeftArrow({ opacity }: { opacity?: boolean }) {
+  console.log('opacity', opacity)
   return (
     <svg
       width='20'
@@ -8,7 +8,7 @@ function LeftArrow({opacity}) {
       viewBox='0 0 20 21'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      opacity={opacity?'0.7':'1'}
+      opacity={opacity ? '0.7' : '1'}
     >
       <path
         d='M15.8334 10.4998H4.16675M4.16675 10.4998L10.0001 16.3332M4.16675 10.4998L10.0001 4.6665'

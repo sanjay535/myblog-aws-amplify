@@ -1,4 +1,4 @@
-function LightRound({fillColor}) {
+function LightRound() {
   return (
     <svg
       width='24'

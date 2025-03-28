@@ -11,7 +11,7 @@ const SignUp = ({ user }: { user?: AuthUser }) => {
         if (user) {
             redirect('/admin')
         }
-    })
+    }, [user])
     return <Loader className="w-[5rem] h-[5rem] flex justify-center items-center" />
 };
 
