@@ -16,7 +16,13 @@ const schema = a.schema({
     status: a.enum(['PUBLISHED', 'DELETED', 'DRAFTED']),
     tags: a.hasMany('PostTags', 'postId'),
     keywords: a.string().array()
-  }),
+  }).authorization(allow => [
+    // Allow anyone auth'd with an API key to read everyone's posts.
+    allow.authenticated(),
+    // Allow signed-in user to create, read, update,
+    // and delete their __OWN__ posts.
+    allow.owner(),
+  ]),
 
   PostTags: a.model({
     id: a.id(),
@@ -24,7 +30,7 @@ const schema = a.schema({
     tagId: a.id().required(),
     post: a.belongsTo('Post', 'postId'),
     tag: a.belongsTo('Tag', 'tagId'),
-  }),
+  }).authorization((allow) => allow.authenticated()),
 
   Tag: a.model({
     tagId: a.id(),
@@ -32,14 +38,14 @@ const schema = a.schema({
     createdAt: a.datetime(),
     updatedAt: a.datetime(),
     posts: a.hasMany('PostTags', 'tagId'),
-  }),
+  }).authorization((allow) => allow.authenticated()),
 
   Category: a.model({
     name: a.string().required(),
     createdAt: a.datetime(),
     updatedAt: a.datetime(),
     posts: a.hasMany('Post', 'categoryId'),
-  }),
+  }).authorization((allow) => allow.authenticated()),
 
   AdminUser: a.model({
     id: a.id(),
@@ -55,7 +61,7 @@ const schema = a.schema({
     posts: a.hasMany('Post', 'authorId'),
     createdAt: a.datetime(),
     updatedAt: a.datetime(),
-  }),
+  }).authorization((allow) => allow.authenticated()),
 });
 
 
